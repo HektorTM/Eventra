@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <section class="min-h-[70vh] flex items-center justify-center px-6">
+        <div class="w-full max-w-md bg-white rounded-2xl shadow p-10">
+            <h1 class="text-2xl font-bold mb-2">Create your account</h1>
+            <p class="text-slate-500 mb-8">Get started with Eventra</p>
+
+            {# Email verification errors #}
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="mb-6 rounded-lg bg-red-50 p-4 text-sm text-red-600">
+                    {{ flash_error }}
+                </div>
+            {% endfor %}
+
+            {# Global form errors #}
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm, { attr: { class: 'space-y-4' } }) }}
+
+            {# Username #}
+            <div>
+                {{ form_widget(registrationForm.username, {
+                    attr: {
+                        placeholder: 'Username',
+                        class: 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500'
+                    }
+                }) }}
+                {{ form_errors(registrationForm.username) }}
+            </div>
+
+            {# Email #}
+            <div>
+                {{ form_widget(registrationForm.email, {
+                    attr: {
+                        placeholder: 'Email',
+                        class: 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500'
+                    }
+                }) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            {# Password #}
+            <div>
+                {{ form_widget(registrationForm.plainPassword, {
+                    attr: {
+                        placeholder: 'Password',
+                        class: 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500'
+                    }
+                }) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            {# Agree terms #}
+            <label class="flex items-start gap-3 text-sm text-slate-600">
+                {{ form_widget(registrationForm.agreeTerms, {
+                    attr: { class: 'mt-1 rounded' }
+                }) }}
+                <span>
+                    I agree to the
+                    <a href="#" class="text-indigo-600 hover:underline">
+                        terms and conditions
+                    </a>
+                </span>
+            </label>
+            {{ form_errors(registrationForm.agreeTerms) }}
+
+            <button
+                type="submit"
+                class="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition">
+                Create account
+            </button>
+
+            {{ form_end(registrationForm) }}
+
+            <p class="mt-6 text-center text-sm text-slate-500">
+                Already have an account?
+                <a href="{{ path('app_login') }}" class="text-indigo-600 hover:underline">
+                    Sign in
+                </a>
+            </p>
+        </div>
+    </section>
+{% endblock %}
