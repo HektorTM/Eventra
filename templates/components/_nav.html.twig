@@ -1,0 +1,82 @@
+<div class="relative max-w-7xl mx-auto px-6 h-16 flex items-center">
+
+    <a href="{{ path('event_index') }}" class="flex items-center gap-2">
+        <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white text-lg font-semibold md:hidden">
+        E
+    </span>
+
+        <span class="hidden md:flex items-center gap-2">
+        <span class="h-6 w-1 rounded-full bg-indigo-600"></span>
+        <span class="text-2xl font-semibold tracking-tight text-slate-900">
+            Eventra
+        </span>
+    </span>
+    </a>
+
+    <nav class="absolute left-1/2 -translate-x-1/2 flex items-center gap-6">
+        <a href="{{ path('event_index') }}"
+           class="text-xl font-medium text-slate-600 hover:text-slate-900">
+            Events
+        </a>
+
+        <a href="#"
+           class="text-xl font-medium text-slate-600 hover:text-slate-900">
+            About
+        </a>
+    </nav>
+
+    <div class="ml-auto flex items-center">
+        {% if app.user %}
+            <el-dropdown class="inline-block">
+                <button
+                    class="flex items-center gap-2 rounded-full bg-white/5 p-1.5 hover:bg-white/10 transition focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    aria-label="Open user menu"
+                >
+                    <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+                        {{ app.user.userIdentifier|first|upper }}
+                    </span>
+                </button>
+
+                <el-menu anchor="bottom end" popover class="w-56 origin-top-right divide-y divide-white/10 rounded-md bg-gray-800 outline-1 -outline-offset-1 outline-white/10 transition transition-discrete [--anchor-gap:--spacing(2)] data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in">
+                    <div class="px-4 py-3">
+                        <p class="text-sm font-medium text-white">
+                            {{ app.user.username }}
+                        </p>
+                        <p class="text-xs font-medium text-gray-400">
+                            {{ app.user.userIdentifier }}
+                        </p>
+                    </div>
+
+
+                    <div class="py-1">
+                        <a href="#"
+                           class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white">
+                            Your Dashboard
+                        </a>
+                        <a href="#"
+                           class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white">
+                            Profile
+                        </a>
+                        <a href="#"
+                           class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white">
+                            Settings
+                        </a>
+                    </div>
+
+                    <div class="py-1">
+                        <a href="{{ path('app_logout') }}"
+                           class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white">
+                            Log out
+                        </a>
+                    </div>
+                </el-menu>
+            </el-dropdown>
+        {% else %}
+            <a href="{{ path('app_login') }}"
+               class="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition">
+                Login
+            </a>
+        {% endif %}
+    </div>
+
+</div>

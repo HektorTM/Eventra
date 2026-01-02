@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <section class="min-h-[70vh] flex items-center justify-center px-6">
+        <div class="w-full max-w-md bg-white rounded-2xl shadow p-10">
+            <h1 class="text-2xl font-bold mb-2">Welcome back</h1>
+            <p class="text-slate-500 mb-8">Sign in to manage your events</p>
+
+            {% if error %}
+                <div class="mb-6 rounded-lg bg-red-50 p-4 text-sm text-red-600">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-6 text-sm text-slate-600">
+                    You are logged in as <strong>{{ app.user.userIdentifier }}</strong>,
+                    <a href="{{ logout_path() }}" class="text-indigo-600 hover:underline">Logout</a>
+                </div>
+            {% endif %}
+
+            <form method="post" class="space-y-4">
+                <input
+                    type="email"
+                    name="_username"
+                    value="{{ last_username }}"
+                    autocomplete="email"
+                    required
+                    autofocus
+                    placeholder="Email"
+                    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                >
+
+                <input
+                    type="password"
+                    name="_password"
+                    autocomplete="current-password"
+                    required
+                    placeholder="Password"
+                    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+                >
+
+                <input type="hidden"
+                       name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}">
+
+                <button
+                    type="submit"
+                    class="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition">
+                    Login
+                </button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
