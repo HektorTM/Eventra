@@ -12,14 +12,12 @@
 
 <!-- NAVBAR -->
 <header class="bg-white border-b">
-    {% include 'components/_nav.html.twig' %}
+    {% block header %}{% endblock %}
 </header>
 
 <main>
     {% block body %}{% endblock %}
 </main>
-
-{% include 'components/_footer.html.twig' %}
-
+{% block footer %}{% endblock %}
 </body>
 </html>

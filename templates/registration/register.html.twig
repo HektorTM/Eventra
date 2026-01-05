@@ -3,7 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <section class="min-h-[70vh] flex items-center justify-center px-6">
+    <section class="min-h-[78vh] flex items-center justify-center px-6">
         <div class="w-full max-w-md bg-white rounded-2xl shadow p-10">
             <h1 class="text-2xl font-bold mb-2">Create your account</h1>
             <p class="text-slate-500 mb-8">Get started with Eventra</p>
@@ -20,7 +20,6 @@
 
             {{ form_start(registrationForm, { attr: { class: 'space-y-4' } }) }}
 
-            {# Username #}
             <div>
                 {{ form_widget(registrationForm.username, {
                     attr: {
@@ -75,6 +74,23 @@
 
             {{ form_end(registrationForm) }}
 
+            <div class="my-4 pb-3 flex items-center">
+                <div class="flex-1 h-px bg-slate-200"></div>
+                    <span class="mx-4 text-xs font-medium text-slate-400 uppercase">
+                        or
+                    </span>
+                <div class="flex-1 h-px bg-slate-200"></div>
+            </div>
+
+            <a href="{{ path('connect_google') }}"
+               class="mt-2 mb-4 flex w-full items-center justify-center gap-3 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+                <img src="{{ asset('icons/google.svg') }}"
+                     alt="Google"
+                     class="h-5 w-5">
+
+                <span>Continue with Google</span>
+            </a>
             <p class="mt-6 text-center text-sm text-slate-500">
                 Already have an account?
                 <a href="{{ path('app_login') }}" class="text-indigo-600 hover:underline">
@@ -83,4 +99,8 @@
             </p>
         </div>
     </section>
+{% endblock %}
+
+{% block footer %}
+    {% include 'components/_footer.html.twig' %}
 {% endblock %}

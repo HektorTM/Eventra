@@ -8,8 +8,11 @@
 /public/build
 /var/
 /vendor/
+/public/uploads
 ###< symfony/framework-bundle ###
-
+.envx
+.env.dev
+.env.test
 ###> phpunit/phpunit ###
 /phpunit.xml
 /.phpunit.cache/

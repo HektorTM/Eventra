@@ -2,6 +2,10 @@
 
 {% block title %}Professional Events{% endblock %}
 
+{% block header %}
+    {% include 'components/_nav.html.twig' %}
+{% endblock %}
+
 {% block body %}
 
     <section class="bg-gradient-to-br from-indigo-600 to-purple-600 text-white">
@@ -26,14 +30,14 @@
         </h2>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {% for event in events %}
+            {% set public = events|filter((e) => e.isPublished) %}
+            {% for event in public %}
                 <a href="{{ path('event_show', { slug: event.slug }) }}"
                    class="group bg-white rounded-2xl border hover:shadow-xl transition overflow-hidden">
 
                     <div class="relative">
                         <img src="{{ event.image }}"
                              class="h-56 w-full object-cover group-hover:scale-105 transition duration-300">
-
                         <div class="absolute top-4 left-4 flex items-center gap-2">
                             <span class="bg-white/90 backdrop-blur px-3 py-1 text-xs font-semibold rounded-full">
                                 {{ event.date|date('M d') }}
@@ -68,4 +72,8 @@
         </div>
     </section>
 
+{% endblock %}
+
+{% block footer %}
+    {% include 'components/_footer.html.twig' %}
 {% endblock %}

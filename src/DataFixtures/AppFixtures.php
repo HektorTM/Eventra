@@ -14,15 +14,19 @@ class AppFixtures extends Fixture
     {
         $user1 = new User();
         $user1->setUsername('Paul von Berg');
-        $user1->setEmail('paul.vonberg@eventify.com');
+        $user1->setEmail('paul.vonberg@eventra.com');
         $user1->setPassword(password_hash('password', PASSWORD_DEFAULT));
         $user1->setRoles(['ROLE_ADMIN']);
+        $user1->setIsActive(true);
+        $user1->setCreatedAt(new \DateTimeImmutable('now'));
 
         $user2 = new User();
         $user2->setUsername('Hektor Crestello');
-        $user2->setEmail('hektor.crestello@eventify.com');
+        $user2->setEmail('hektor.crestello@eventra.com');
         $user2->setPassword(password_hash('password', PASSWORD_DEFAULT));
-        $user2->setRoles(['ROLE_USER']);
+        $user2->setRoles(['ROLE_PUBLISHER']);
+        $user2->setIsActive(true);
+        $user2->setCreatedAt(new \DateTimeImmutable('now'));
 
         $category1 = new Category();
         $category1->setName('Tech');
@@ -38,6 +42,8 @@ class AppFixtures extends Fixture
         $event1->setImage('https://images.unsplash.com/photo-1540575467063-178a50c2df87');
         $event1->setDescription('A friendly meetup for Symfony developers.');
         $event1->setCategory($category1);
+        $event1->setCreatedBy($user1);
+        $event1->setIsPublished(false);
 
         $event2 = new Event();
         $event2->setSlug('php-conference');
@@ -47,6 +53,8 @@ class AppFixtures extends Fixture
         $event2->setImage('https://images.unsplash.com/photo-1503428593586-e225b39bddfe');
         $event2->setDescription('A full-day conference about modern PHP.');
         $event2->setCategory($category2);
+        $event2->setCreatedBy($user2);
+        $event2->setIsPublished(true);
 
         $category1->addEvent($event1);
         $category2->addEvent($event2);
