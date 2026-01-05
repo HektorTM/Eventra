@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    <div class="flex min-h-screen bg-slate-50">
+        {% include 'components/_admin_sidebar.html.twig' %}
+
+        <main class="flex-1 p-8">
+            <div class="space-y-8">
+
+                {# HEADER #}
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-[32px] font-semibold tracking-tight text-black">
+                            Events
+                        </h1>
+                        <p class="text-[15px] text-black/40 mt-1">
+                            {{ events|length }}
+                            Event{{ events|length != 1 ? 's' : '' }} in total
+                        </p>
+                    </div>
+
+                    <a href="{{ path('app_dashboard_events_new') }}"
+                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-[13px] font-medium rounded-full hover:bg-black/80 active:scale-[0.98] transition-all">
+                        {{ ux_icon('lucide:plus') }}
+                        Create Event
+                    </a>
+                </div>
+
+                {# EMPTY STATE #}
+                {% if events|length == 0 %}
+                    <div class="bg-white rounded-2xl border border-black/6 shadow-sm p-16 flex flex-col items-center justify-center">
+                        <div class="w-16 h-16 rounded-2xl bg-black/4 flex items-center justify-center mb-4">
+                            <span class="text-black/20 text-3xl">📄</span>
+                        </div>
+                        <p class="text-[15px] text-black/40 mb-6">
+                            No events found
+                        </p>
+                        <a href="{{ path('app_dashboard_events_new') }}"
+                           class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-[13px] font-medium rounded-full hover:bg-black/80 transition-colors">
+                            {{ ux_icon('lucide:plus') }}
+                            Create Event
+                        </a>
+                    </div>
+                {% else %}
+
+                    {# UPCOMING EVENTS #}
+                    <div class="bg-white rounded-2xl border border-black/6 shadow-sm overflow-hidden">
+                        <h2 class="text-xl font-semibold px-5 pt-5 pb-3">
+                            Upcoming Events
+                        </h2>
+
+                        {% set upcoming = events|filter(e => e.date >= "now"|date) %}
+
+                        {% for event in upcoming %}
+                            {% include 'components/_event_list_item.html.twig' with { event: event } %}
+                        {% else %}
+                            <p class="px-5 pb-5 text-black/40 text-sm">
+                                No upcoming events
+                            </p>
+                        {% endfor %}
+                    </div>
+
+                    {# PAST EVENTS #}
+                    <div class="bg-white rounded-2xl border border-black/6 shadow-sm overflow-hidden mt-10">
+                        <h2 class="text-xl font-semibold px-5 pt-5 pb-3">
+                            Past Events
+                        </h2>
+
+                        {% set past = events|filter(e => e.date < "now"|date) %}
+
+                        {% for event in past %}
+                            {% include 'components/_event_list_item.html.twig' with { event: event } %}
+                        {% else %}
+                            <p class="px-5 pb-5 text-black/40 text-sm">
+                                No past Events
+                            </p>
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+            </div>
+        </main>
+    </div>
+{% endblock %}

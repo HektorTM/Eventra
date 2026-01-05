@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block body %}
+    <div class="flex min-h-screen bg-slate-50">
+        {% include 'components/_admin_sidebar.html.twig' %}
+
+        <main class="flex-1 p-8">
+            <div class="max-w-3xl space-y-6">
+
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl font-semibold">
+                        Edit Event
+                    </h1>
+
+                    <a href="{{ path('app_dashboard_events') }}"
+                       class="text-sm text-slate-500 hover:underline">
+                        ← Back to events
+                    </a>
+                </div>
+
+                {% include 'components/_form.html.twig' with { form: form } %}
+
+            </div>
+        </main>
+    </div>
+{% endblock %}

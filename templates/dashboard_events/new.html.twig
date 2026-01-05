@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    <div class="flex min-h-screen bg-slate-50">
+        {% include 'components/_admin_sidebar.html.twig' %}
+
+        <main class="flex-1 p-8">
+            <div class="space-y-8">
+                {% include 'components/_form.html.twig' with { form: form } %}
+            </div>
+        </main>
+    </div>
+
+{% endblock %}

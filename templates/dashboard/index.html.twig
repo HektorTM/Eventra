@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+<div class="flex min-h-screen bg-slate-50">
+    {% include 'components/_admin_sidebar.html.twig' %}
+
+    <main class="flex-1 p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <a href="{{ path('app_dashboard_events') }}">
+                <div class="bg-white rounded-2xl border border-black/6 shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all h-full">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-11 h-11 rounded-xl bg-black/4 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                            {{ ux_icon('lucide:calendar') }}
+                        </div>
+                        {{ ux_icon('lucide:arrow-up-right') }}
+                    </div>
+                    <p class="text-[36px] font-semibold tracking-tight text-black leading-none">
+                        {{ events }}
+                    </p>
+                    <p class="text-[13px] text-black/40 mt-1 font-medium">Events</p>
+
+                </div>
+            </a>
+            <div class="bg-white rounded-2xl border border-black/6 shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all h-full">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="w-11 h-11 rounded-xl bg-black/4 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                        {{ ux_icon('lucide:tag') }}
+                    </div>
+                    {{ ux_icon('lucide:arrow-up-right') }}
+                </div>
+                <p class="text-[36px] font-semibold tracking-tight text-black leading-none">
+                    {{ categories }}
+                </p>
+                <p class="text-[13px] text-black/40 mt-1 font-medium">Categories</p>
+
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

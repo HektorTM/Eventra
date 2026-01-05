@@ -1,0 +1,57 @@
+FORM TEMPLATE LOADED
+{{ form_start(form, { attr: { class: 'space-y-6' } }) }}
+
+<div>
+    {{ form_label(form.title) }}
+    {{ form_widget(form.title, { attr: {
+        class: 'w-full rounded-lg border p-3 focus:ring-2 focus:ring-indigo-500'
+    }}) }}
+    {{ form_errors(form.title) }}
+</div>
+
+<div>
+    {{ form_label(form.description) }}
+    {{ form_widget(form.description, { attr: {
+        class: 'w-full rounded-lg border p-3'
+    }}) }}
+</div>
+
+<div class="grid grid-cols-2 gap-4">
+    <div>
+        {{ form_label(form.date) }}
+        {{ form_widget(form.date, { attr: {
+            class: 'w-full rounded-lg border p-3'
+        }}) }}
+    </div>
+
+    <div>
+        {{ form_label(form.category) }}
+        {{ form_widget(form.category, { attr: {
+            class: 'w-full rounded-lg border p-3'
+        }}) }}
+    </div>
+</div>
+
+<div>
+    {{ form_label(form.location) }}
+    {{ form_widget(form.location, { attr: {
+        class: 'w-full rounded-lg border p-3'
+    }}) }}
+</div>
+
+<div>
+    {{ form_label(form.imageFile) }}
+    {{ form_widget(form.imageFile, { attr: {
+        class: 'block w-full text-sm text-slate-500'
+    }}) }}
+</div>
+
+<div class="flex items-center justify-between">
+    {{ form_widget(form.isPublished) }}
+
+    <button class="px-6 py-3 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-700">
+        Save Event
+    </button>
+</div>
+
+{{ form_end(form) }}
