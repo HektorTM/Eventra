@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    <div class="flex min-h-screen bg-slate-50">
+        {% include 'components/_admin_sidebar.html.twig' %}
+
+        <main class="flex-1 p-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="space-y-8">
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-[32px] font-semibold tracking-tight text-black">
+                                Categories
+                            </h1>
+                            <p class="text-[15px] text-black/40 mt-1">
+                                {{ categories|length }}
+                                {{ categories|length != 1 ? 'Categories' : 'Category' }} in total
+                            </p>
+                        </div>
+
+                        <a href="{{ path('app_dashboard_events_new') }}"
+                           class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-[13px] font-medium rounded-full hover:bg-black/80 active:scale-[0.98] transition-all">
+                            {{ ux_icon('lucide:plus') }}
+                            Create Category
+                        </a>
+                    </div>
+
+                    {% if categories|length == 0 %}
+                        <div class="bg-white rounded-2xl border border-black/6 shadow-sm p-16 flex flex-col items-center justify-center">
+                            <div class="w-16 h-16 rounded-2xl bg-black/4 flex items-center justify-center mb-4">
+                                <span class="text-black/20 text-3xl">📄</span>
+                            </div>
+                            <p class="text-[15px] text-black/40 mb-6">
+                                No categories found
+                            </p>
+                        </div>
+                    {% else %}
+                        <div class="bg-white rounded-2xl border border-black/[0.06]  shadow-sm divide-y divide-black/[0.06]">
+                        {% for category in categories %}
+                            {% include 'components/_category_list_item.html.twig' with { category: category } %}
+                        {% else %}
+                            <p class="px-5 pb-5 text-black/40 text-sm">
+                                No categories found
+                            </p>
+                            <a href="{{ path('app_dashboard_events_new') }}"
+                               class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-[13px] font-medium rounded-full hover:bg-black/80 transition-colors">
+                                {{ ux_icon('lucide:plus') }}
+                                Create Event
+                            </a>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}

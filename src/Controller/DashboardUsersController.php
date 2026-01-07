@@ -14,7 +14,6 @@ final class DashboardUsersController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        $user = $this->getUser();
         $users = $ur->findAll();
 
         return $this->render('dashboard_user/index.html.twig', [

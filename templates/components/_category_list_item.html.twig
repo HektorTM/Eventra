@@ -1,0 +1,24 @@
+<div
+    class="px-5 py-4 flex items-center gap-4 hover:bg-black/[0.01] transition-colors"
+>
+    <div class="w-10 h-10 rounded-xl bg-black/[0.04] flex items-center justify-center">
+        {{ ux_icon('lucide:tag') }}
+    </div>
+    <div class="flex-1 min-w-0">
+        <p class="text-[15px] font-medium text-black">{{ category.name }}</p>
+        <span class="text-[11px] font-mono text-black/30">#{{ category.id }}</span>
+    </div>
+    <div class="flex items-center gap-2">
+        <button
+            class="w-9 h-9 rounded-xl bg-black/[0.04] hover:bg-black/[0.08] flex items-center justify-center transition-colors"
+        >
+        {{ ux_icon('lucide:pencil') }}
+
+        </button>
+        <button
+            class="w-9 h-9 rounded-xl bg-black/[0.04] hover:bg-red-500/10 flex items-center justify-center transition-colors group"
+        >
+        {{ ux_icon('lucide:trash') }}
+        </button>
+    </div>
+</div>
