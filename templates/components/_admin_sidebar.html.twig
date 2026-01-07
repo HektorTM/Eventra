@@ -45,7 +45,7 @@
             Categories
         </a>
         {% if is_granted("ROLE_ADMIN") %}
-        <a href="#"
+        <a href="{{ path('app_dashboard_users') }}"
            class="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium
           {{ route == 'app_dashboard_users'
            ? 'bg-indigo-50 text-indigo-700'

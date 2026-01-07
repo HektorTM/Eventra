@@ -24,6 +24,23 @@
 
                 </div>
             </a>
+
+            {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('app_dashboard_users') }}">
+                    <div class="bg-white rounded-2xl border border-black/6 shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all h-full">
+                        <div class="flex items-start justify-between mb-6">
+                            <div class="w-11 h-11 rounded-xl bg-black/4 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                                {{ ux_icon('lucide:users') }}
+                            </div>
+                            {{ ux_icon('lucide:arrow-up-right') }}
+                        </div>
+                        <p class="text-[36px] font-semibold tracking-tight text-black leading-none">
+                            {{ users }}
+                        </p>
+                        <p class="text-[13px] text-black/40 mt-1 font-medium">Users</p>
+                    </div>
+                </a>
+            {% endif %}
             <div class="bg-white rounded-2xl border border-black/6 shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all h-full">
                 <div class="flex items-start justify-between mb-6">
                     <div class="w-11 h-11 rounded-xl bg-black/4 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
@@ -35,7 +52,6 @@
                     {{ categories }}
                 </p>
                 <p class="text-[13px] text-black/40 mt-1 font-medium">Categories</p>
-
             </div>
         </div>
     </main>

@@ -18,6 +18,7 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            access_denied_handler:
             form_login:
                 login_path: app_login
                 check_path: app_login
@@ -43,9 +44,14 @@ security:
         ROLE_ADMIN: ROLE_PUBLISHER
 
     access_control:
-         - { path: ^/connect/google, roles: PUBLIC_ACCESS }
-         - { path: ^/dashboard, roles: ROLE_PUBLISHER }
-         - { path: ^/dashboard/users, roles: ROLE_ADMIN }
+        - { path: ^/connect/google, roles: PUBLIC_ACCESS }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+
+        - { path: ^/dashboard/users, roles: ROLE_ADMIN }
+        - { path: ^/dashboard, roles: ROLE_PUBLISHER }
+
+        - { path: ^/, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

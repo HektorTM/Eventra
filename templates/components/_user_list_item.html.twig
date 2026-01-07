@@ -1,0 +1,72 @@
+<div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white px-4 py-4 hover:bg-slate-50 transition">
+    <div class="text-xs text-slate-400">
+        #{{ user.id }}
+    </div>
+    {# Avatar (far left) #}
+    <div class="flex-shrink-0">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+            {{ user.username is defined and user.username ? user.username|first|upper : user.email|first|upper }}
+        </span>
+    </div>
+
+    {# User info #}
+    <div class="min-w-0 flex-1">
+        <p class="truncate text-sm font-medium text-slate-900">
+            {{ user.username ?? 'Unnamed User' }}
+        </p>
+        <p class="truncate text-xs text-slate-500">
+            {{ user.email }}
+        </p>
+    </div>
+
+    <div class="win-w-0 flex-1">
+        <div class="flex items-center gap-2 text-slate-900">
+            {% for s in user.roles %}
+                {% if s == "ROLE_ADMIN" %}
+                    <span class="group relative cursor-pointer">
+                    {{ ux_icon("lucide:crown", { class: "w-4 h-4" }) }}
+                    <span class="absolute -top-8 left-1/2 -translate-x-1/2
+                                 hidden group-hover:block
+                                 rounded bg-slate-900 px-2 py-1 text-xs text-white whitespace-nowrap">
+                        Admin
+                    </span>
+                </span>
+                {% elseif s == "ROLE_PUBLISHER" %}
+                    <span class="group relative cursor-pointer">
+                    {{ ux_icon("lucide:pen", { class: "w-4 h-4" }) }}
+                    <span class="absolute -top-8 left-1/2 -translate-x-1/2
+                                 hidden group-hover:block
+                                 rounded bg-slate-900 px-2 py-1 text-xs text-white whitespace-nowrap">
+                        Publisher
+                    </span>
+                </span>
+                {% elseif s == "ROLE_USER" %}
+                    <span class="group relative cursor-pointer">
+                    {{ ux_icon("lucide:user", { class: "w-4 h-4" }) }}
+                    <span class="absolute -top-8 left-1/2 -translate-x-1/2
+                                 hidden group-hover:block
+                                 rounded bg-slate-900 px-2 py-1 text-xs text-white whitespace-nowrap">
+                        User
+                    </span>
+                </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="min-w-0 flex-1 flex items-center gap-2">
+        {% if user.googleId is null %}
+            {# Email user #}
+            {{ ux_icon('lucide:mail') }}
+        {% else %}
+            {# Google user #}
+            <img
+                src="{{ asset('icons/google.svg') }}"
+                alt="Google account"
+                class="h-4 w-4"
+            >
+        {% endif %}
+    </div>
+
+
+</div>
