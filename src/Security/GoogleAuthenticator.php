@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use App\Entity\UserProfile;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,15 +61,19 @@ class GoogleAuthenticator extends AbstractAuthenticator
                     $user = new User();
                     $user->setEmail($email);
                     $user->setGoogleId($googleId);
-                    $user->setUsername(
-                        $googleUser->getName() ?? 'google_'.bin2hex(random_bytes(4))
-                    );
                     $user->setPassword('');
                     $user->setRoles(['ROLE_USER']);
                     $user->setIsActive(true);
                     $user->setIsVerified(true);
                     $user->setCreatedAt(new \DateTimeImmutable());
 
+                    $profile = new UserProfile();
+                    $profile->setUser($user);
+                    $profile->setAvatarUrl($googleUser->getAvatar());
+                    $profile->setDisplayName($googleUser->getName());
+
+                    $user->setUserProfile($profile);
+                    $this->em->persist($profile);
                     $this->em->persist($user);
                     $this->em->flush();
                 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserProfile;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,7 +37,18 @@ class RegistrationController extends AbstractController
 
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            $user->setIsActive(true);
+            $user->setCreatedAt(new \DateTimeImmutable());
+            $user->setRoles(['ROLE_USER']);
 
+            $profile = new UserProfile();
+            $profile->setUser($user);
+            $replace = ['_', '.'];
+            $displayname = explode('@', $user->getEmail());
+            $profile->setDisplayName(str_replace($replace, ' ', $displayname[0]));
+            $profile->setAvatarUrl('https://ui-avatars.com/api/?name='.$displayname[0]);
+
+            $user->setUserProfile($profile);
             $entityManager->persist($user);
             $entityManager->flush();
 

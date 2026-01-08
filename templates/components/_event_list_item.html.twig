@@ -28,7 +28,7 @@
                 </a>
             {% endif %}
 
-            <a href="{#{ path('event_delete', { id: event.id }) }#}"
+            <a href="{{ path('app_dashboard_events_delete', { slug: event.slug }) }}"
                class="text-xs text-red-500 hover:underline">
                 Delete
             </a>

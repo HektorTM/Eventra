@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use App\Entity\Event;
 use App\Entity\User;
+use App\Entity\UserProfile;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -12,6 +13,10 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $profile1 = new UserProfile();
+        $profile1->setDisplayName('HektorTM');
+        $profile1->setAvatarUrl('https://lh3.googleusercontent.com/a/ACg8ocKSw8-sqIlhHs6pD_mKZa0gOolYn5TEkg4HKUsOrn2m5JQf5Tzk=s192-c-mo 2x');
+
         $user1 = new User();
         $user1->setUsername('Paul von Berg');
         $user1->setEmail('paul.vonberg@eventra.com');
@@ -19,6 +24,8 @@ class AppFixtures extends Fixture
         $user1->setRoles(['ROLE_ADMIN']);
         $user1->setIsActive(true);
         $user1->setCreatedAt(new \DateTimeImmutable('now'));
+        $user1->setUserProfile($profile1);
+        $profile1->setUser($user1);
 
         $user2 = new User();
         $user2->setUsername('Hektor Crestello');

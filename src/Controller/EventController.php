@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Event;
-use Doctrine\ORM\EntityManager;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -21,19 +22,55 @@ class EventController extends AbstractController
         ]);
     }
 
+    #[Route('/events/{id}/join', name: 'event_join')]
+    public function join(
+        string $id,
+        Request $request,
+        EntityManagerInterface $em,
+        UserRepository $userRepository,
+    ): Response {
+        $userId = $this->getUser()->getId();
+        $user = $userRepository->find($userId);
+        $event = $em->getRepository(Event::class)->find($id);
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $userId = (int) $request->query->get('userId');
+
+        if ($user->getId() !== $userId) {
+            throw $this->createAccessDeniedException();
+        }
+
+        if (!$event->getParticipants()->contains($user)) {
+            $event->addParticipant($user);
+            $user->addSavedEvent($event);
+            $em->flush();
+        } else {
+            $event->removeParticipant($user);
+            $user->removeSavedEvent($event);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute(
+            $request->query->get('return', 'event_show'),
+            ['slug' => $request->query->get('returnSlug')]
+        );
+    }
+
     #[Route('/events/{slug}', name: 'event_show')]
-    public function show(string $slug, EntityManagerInterface $em): Response
+    public function show(string $slug, EntityManagerInterface $em, UserRepository $ur): Response
     {
         $event = $em->getRepository(Event::class)->findOneBy(['slug' => $slug]);
+        $isParticipant = $event->getParticipants()->contains($ur->find($this->getUser()->getId()));
 
         if ($event) {
             return $this->render('event/show.html.twig', [
                 'event' => $event,
+                'isParticipant' => $isParticipant,
             ]);
         }
 
         throw $this->createNotFoundException();
-
-
     }
 }

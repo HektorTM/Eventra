@@ -72,7 +72,7 @@
 
                 <span class="flex-1 overflow-hidden">
                 <span class="block truncate text-sm font-medium text-slate-900">
-                    {{ app.user.username ?? app.user.userIdentifier }}
+                    {{ app.user.userprofile.displayname ?? app.user.userIdentifier }}
                 </span>
                 <span class="block truncate text-xs text-slate-500">
                     {{ app.user.userIdentifier }}
@@ -94,7 +94,7 @@
             >
                 <div class="px-4 py-3">
                     <p class="text-sm font-medium text-white">
-                        {{ app.user.username ?? app.user.userIdentifier }}
+                        {{ app.user.userprofile.displayname ?? app.user.userIdentifier }}
                     </p>
                     <p class="text-xs text-gray-400">
                         {{ app.user.userIdentifier }}
@@ -107,7 +107,7 @@
                         Dashboard
                     </a>
 
-                    <a href="#"
+                    <a href="{{ path('app_account') }}"
                        class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-white">
                         Profile
                     </a>

@@ -2,6 +2,10 @@
 
 {% block title %}{{ event.title }}{% endblock %}
 
+{% block header %}
+    {% include 'components/_nav.html.twig' %}
+{% endblock %}
+
 {% block body %}
 
     <section class="relative">
@@ -34,10 +38,26 @@
                     0 / 0 attending
                 </div>
 
-                <button
-                    class="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition">
-                    Register now
-                </button>
+                <a href="{{ path('event_join', {
+                    id: event.id,
+                    userId: app.user.id,
+                    return: 'event_show',
+                    returnSlug: event.slug
+                }) }}">
+                    {% if isParticipant %}
+                        <button
+                            class="px-8 py-4 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition"
+                        >
+                            Unsave Event
+                        </button>
+                    {% else %}
+                        <button
+                            class="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition"
+                        >
+                            Save Event
+                        </button>
+                    {% endif %}
+                </a>
             </div>
 
         </div>

@@ -20,16 +20,6 @@
 
             {{ form_start(registrationForm, { attr: { class: 'space-y-4' } }) }}
 
-            <div>
-                {{ form_widget(registrationForm.username, {
-                    attr: {
-                        placeholder: 'Username',
-                        class: 'w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500'
-                    }
-                }) }}
-                {{ form_errors(registrationForm.username) }}
-            </div>
-
             {# Email #}
             <div>
                 {{ form_widget(registrationForm.email, {

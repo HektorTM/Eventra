@@ -12,7 +12,7 @@
     {# User info #}
     <div class="min-w-0 flex-1">
         <p class="truncate text-sm font-medium text-slate-900">
-            {{ user.username ?? 'Unnamed User' }}
+            {{ user.userprofile.displayname ?? 'Unnamed User' }}
         </p>
         <p class="truncate text-xs text-slate-500">
             {{ user.email }}

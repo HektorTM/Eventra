@@ -80,6 +80,23 @@ final class DashboardEventsController extends AbstractController
         return $this->redirectToRoute('app_dashboard_events');
     }
 
+    #[Route('/dashboard/events/{slug}/delete', name: 'app_dashboard_events_delete')]
+    public function delete(string $slug, EntityManagerInterface $em): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $event = $em->getRepository(Event::class)->findOneBy([
+            'slug' => $slug,
+            'created_by' => $this->getUser(),
+        ]);
+        if (!$event) {
+            throw $this->createNotFoundException();
+        }
+        $em->remove($event);
+        $em->flush();
+        return $this->redirectToRoute('app_dashboard_events');
+    }
+
     #[Route('/dashboard/events/new', name: 'app_dashboard_events_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {

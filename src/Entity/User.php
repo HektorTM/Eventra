@@ -23,9 +23,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column]
@@ -49,9 +46,19 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?UserProfile $userProfile = null;
+
+    /**
+     * @var Collection<int, Event>
+     */
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'participants')]
+    private Collection $savedEvents;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->savedEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,18 +74,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): static
-    {
-        $this->username = $username;
 
         return $this;
     }
@@ -190,6 +185,52 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUserProfile(): ?UserProfile
+    {
+        return $this->userProfile;
+    }
+
+    public function setUserProfile(?UserProfile $userProfile): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($userProfile === null && $this->userProfile !== null) {
+            $this->userProfile->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($userProfile !== null && $userProfile->getUser() !== $this) {
+            $userProfile->setUser($this);
+        }
+
+        $this->userProfile = $userProfile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getSavedEvents(): Collection
+    {
+        return $this->savedEvents;
+    }
+
+    public function addSavedEvent(Event $savedEvent): static
+    {
+        if (!$this->savedEvents->contains($savedEvent)) {
+            $this->savedEvents->add($savedEvent);
+        }
+
+        return $this;
+    }
+
+    public function removeSavedEvent(Event $savedEvent): static
+    {
+        $this->savedEvents->removeElement($savedEvent);
 
         return $this;
     }

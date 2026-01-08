@@ -47,6 +47,11 @@
                                 {{ event.categoryString }}
                             </span>
                         </div>
+                        <div class="absolute right-3 bottom-3 flex items-center">
+                            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-sm font-semibold text-white">
+                                {{ event.createdby.username is defined and event.createdby.username ? event.createdby.username|first|upper : event.createdby.email|first|upper }}
+                            </span>
+                        </div>
                     </div>
 
                     <div class="p-6">
@@ -59,9 +64,6 @@
                         </p>
 
                         <div class="flex items-center justify-between text-sm">
-                        <span class="text-slate-600">
-                            0/0 attending
-                        </span>
                             <span class="font-semibold text-indigo-600">
                             View →
                         </span>
