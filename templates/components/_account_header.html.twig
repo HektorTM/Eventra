@@ -1,0 +1,31 @@
+<div class="flex items-center gap-6 rounded-2xl bg-white p-6 shadow-sm">
+    <img
+        class="h-24 w-24 rounded-full object-cover ring-2 ring-slate-200"
+        src="{{ user.userprofile.avatarUrl ?? 'https://ui-avatars.com/api/?name='}}"
+        alt="Avatar"
+    />
+
+    <div class="flex-1 min-w-0">
+        <h1 class="text-xl font-semibold text-slate-900 truncate">
+            {{ user.userprofile.displayName }}
+        </h1>
+        <p class="text-sm text-slate-500 truncate">
+            {{ user.email }}
+        </p>
+
+        <div class="mt-2 flex flex-wrap gap-2">
+            {% for role in user.roles %}
+                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
+                        {{ role|replace({'ROLE_': ''})|lower|capitalize }}
+                    </span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="flex gap-2">
+        <a href="{{ path('app_account_edit') }}"
+           class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700">
+            Edit profile
+        </a>
+    </div>
+</div>

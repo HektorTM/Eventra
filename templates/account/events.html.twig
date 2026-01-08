@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block header %} {% include 'components/_nav.html.twig' %} {% endblock %}
+
+{% block body %}
+    <div class="max-w-5xl mx-auto px-4 py-10">
+
+        {% include 'components/_account_header.html.twig' with { user: user } %}
+
+        <div class="mt-6 rounded-2xl bg-white p-6 shadow-sm">
+
+            {# Header #}
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-900">
+                        All events
+                    </h2>
+                    <p class="text-sm text-slate-500">
+                        Events you are participating in
+                    </p>
+                </div>
+
+                <a href="{{ app.request.headers.get('referer') ?? path('account_profile') }}"
+                   class="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50">
+                    ← Go back
+                </a>
+            </div>
+
+            {# Event list #}
+            {% if events is empty %}
+                <p class="text-sm text-slate-500">
+                    You are not registered for any events.
+                </p>
+            {% else %}
+                <ul class="divide-y divide-slate-100">
+                    {% for event in events %}
+                        <li class="py-4 flex items-center justify-between">
+                            <div class="min-w-0">
+                                <p class="text-sm font-medium text-slate-900 truncate">
+                                    {{ event.title }}
+                                </p>
+                                <p class="text-xs text-slate-500">
+                                    {{ event.date|date('d M Y · H:i') }}
+                                </p>
+                            </div>
+
+                            <a href="{{ path('event_show', { slug: event.slug }) }}"
+                               class="text-sm font-medium text-indigo-600 hover:underline">
+                                View
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
