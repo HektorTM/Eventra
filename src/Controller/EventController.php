@@ -36,6 +36,14 @@ class EventController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
+        if (!$user->isVerified()) {
+            $this->addFlash('error', 'Please verify your email before joining this event.');
+            return $this->redirectToRoute(
+                $request->query->get('return', 'event_show'),
+                ['slug' => $request->query->get('returnSlug')]
+            );
+        }
+
         $userId = (int) $request->query->get('userId');
 
         if ($user->getId() !== $userId) {

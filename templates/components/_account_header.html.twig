@@ -23,9 +23,14 @@
     </div>
 
     <div class="flex gap-2">
-        <a href="{{ path('app_account_edit') }}"
-           class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700">
-            Edit profile
+        <a href="{{ path('app_account_edit') }}">
+            <button
+                {% if not user.verified %} disabled {% endif %}
+                class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:bg-slate-400"
+            >
+                Edit profile
+            </button>
+
         </a>
     </div>
 </div>

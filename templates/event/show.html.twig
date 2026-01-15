@@ -38,12 +38,14 @@
                     0 / 0 attending
                 </div>
 
-                <a href="{{ path('event_join', {
-                    id: event.id,
-                    userId: app.user.id,
-                    return: 'event_show',
-                    returnSlug: event.slug
-                }) }}">
+                <a href="
+                        {{ path('event_join', {
+                            id: event.id,
+                            userId: app.user.id,
+                            return: 'event_show',
+                            returnSlug: event.slug
+                        }) }}
+                ">
                     {% if isParticipant %}
                         <button
                             class="px-8 py-4 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition"
@@ -52,7 +54,7 @@
                         </button>
                     {% else %}
                         <button
-                            class="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition"
+                            class="px-8 py-4 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition disabled:bg-indigo-300"
                         >
                             Save Event
                         </button>

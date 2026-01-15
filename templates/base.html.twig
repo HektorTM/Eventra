@@ -10,14 +10,21 @@
 
 <body class="bg-slate-50 text-slate-800 antialiased">
 
-<!-- NAVBAR -->
-<header class="bg-white border-b">
-    {% block header %}{% endblock %}
-</header>
+    <!-- NAVBAR -->
+    <header class="bg-white border-b">
+        {% block header %}{% endblock %}
+    </header>
 
-<main>
-    {% block body %}{% endblock %}
-</main>
+    <main>
+        {% block body %}{% endblock %}
+
+    </main>
+
+    <div class="fixed bottom-4 right-4 z-50 w-full max-w-sm space-y-3 pointer-events-none">
+        <div class="pointer-events-auto">
+            {% include 'components/_flash.html.twig' %}
+        </div>
+    </div>
 {% block footer %}{% endblock %}
 </body>
 </html>
