@@ -22,11 +22,13 @@
                             </p>
                         </div>
 
-                        <a href="{{ path('app_dashboard_events_new') }}"
-                           class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-[13px] font-medium rounded-full hover:bg-black/80 active:scale-[0.98] transition-all">
+                        <button
+                            data-action="click->modal#open"
+                            data-modal-id-param="create-category"
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-black text-white text-[13px] font-medium rounded-full hover:bg-black/80 active:scale-[0.98] transition-all">
                             {{ ux_icon('lucide:plus') }}
                             Create Category
-                        </a>
+                        </button>
                     </div>
 
                     {% if categories|length == 0 %}
@@ -58,4 +60,9 @@
             </div>
         </main>
     </div>
+
+    {% if showModal %}
+        {% include 'dashboard_category/_create_modal.html.twig' %}
+    {% endif %}
+
 {% endblock %}

@@ -32,7 +32,7 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {% set public = events|filter((e) => e.isPublished) %}
             {% for event in public %}
-                <a href="{{ path('event_show', { slug: event.slug }) }}"
+                <a href="{{ path('app_event_show', { slug: event.slug }) }}"
                    class="group bg-white rounded-2xl border hover:shadow-xl transition overflow-hidden">
 
                     <div class="relative">

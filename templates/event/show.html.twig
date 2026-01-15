@@ -39,10 +39,10 @@
                 </div>
 
                 <a href="
-                        {{ path('event_join', {
+                        {{ path('app_event_join', {
                             id: event.id,
                             userId: app.user.id,
-                            return: 'event_show',
+                            return: 'app_event_show',
                             returnSlug: event.slug
                         }) }}
                 ">

@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class EventController extends AbstractController
+class MainController extends AbstractController
 {
-    #[Route('/', name: 'event_index')]
+    #[Route('/', name: 'app_home')]
     public function index(EntityManagerInterface $em): Response
     {
         $events = $em->getRepository(Event::class)->findAll();
@@ -22,7 +22,7 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/events/{id}/join', name: 'event_join')]
+    #[Route('/events/{id}/join', name: 'app_event_join')]
     public function join(
         string $id,
         Request $request,
@@ -61,12 +61,12 @@ class EventController extends AbstractController
         }
 
         return $this->redirectToRoute(
-            $request->query->get('return', 'event_show'),
+            $request->query->get('return', 'app_event_show'),
             ['slug' => $request->query->get('returnSlug')]
         );
     }
 
-    #[Route('/events/{slug}', name: 'event_show')]
+    #[Route('/events/{slug}', name: 'app_event_show')]
     public function show(string $slug, EntityManagerInterface $em, UserRepository $ur): Response
     {
         $event = $em->getRepository(Event::class)->findOneBy(['slug' => $slug]);
